@@ -1,0 +1,6 @@
+dis-snek
+orjson
+python-dotenv
+samp-client
+PyMySQL
+bcrypt
