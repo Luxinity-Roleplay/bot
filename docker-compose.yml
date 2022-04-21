@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  bot:
+    restart: on-failure
+    image: ghcr.io/luxinity-roleplay/luxinity-bot:master
+    env_file: prod.env
