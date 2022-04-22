@@ -97,14 +97,14 @@ class change_pass(Scale):
                     await w.send(embed=embed)
 
                     # send username & password to user for safekeeping
-                    embed = dis_snek.Embed(
-                        description="**Your New UCP Password**", color=0x00FF00
+                    manusya = dis_snek.Embed(
+                        description="**Your New UCP Password**", color=0x17A168
                     )
-                    embed.add_field(
+                    manusya.add_field(
                         name="Password:", value=f"||{passwd}||", inline=False
                     )
                     try:
-                        await ctx.author.send(embed=embed)
+                        await ctx.author.send(embed=manusya)
                         await modal_ctx.send(
                             "Successfully changed your UCP Password.\n\nCheck your DM's for your Password!\nTo reset your password again, please use `/change-password` commands.",
                             ephemeral=True,

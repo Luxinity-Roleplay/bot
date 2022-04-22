@@ -105,15 +105,17 @@ class register(Scale):
                     await w.send(embed=embed)
 
                     # send username & password to user for safekeeping
-                    embed = dis_snek.Embed(
-                        description="**Your New UCP Account**", color=0x00FF00
+                    manusya = dis_snek.Embed(
+                        description="**Your New UCP Account**", color=0x17A168
                     )
-                    embed.add_field(name="Username:", value=f"||{user}||", inline=True)
-                    embed.add_field(
+                    manusya.add_field(
+                        name="Username:", value=f"||{user}||", inline=True
+                    )
+                    manusya.add_field(
                         name="Password:", value=f"||{passwd}||", inline=False
                     )
                     try:
-                        await ctx.author.send(embed=embed)
+                        await ctx.author.send(embed=manusya)
                         await modal_ctx.send(
                             "Thank you for registering!\n\nCheck your DM's for your Username & Password!\nTo reset your password, please use `/change-password` commands.",
                             ephemeral=True,
