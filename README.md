@@ -2,15 +2,18 @@
 Luxinity discord server bots written in python
 
 ## Installation
-**WAJIB PAKE `virtualenv`, Please check python docs for more info!**
 
+- Download dan install Python versi terbaru (usahakan yg terbaru, jgn yg jadul)
+
+**WAJIB PAKE `virtualenv`, Please check python docs for more info!**
 **saya anggap kalian sudah setup `virtualenv`*
+
+- Install dependencies package nya menggunakan perintah ini
 ```bash
 pip install -r ".\requirements.txt"
 ```
 
-# `.env` system
-sebelum menjalankan kode ini, buatlah satu file `.env` di folder root dan isi filenya menggunakan contoh berikut
+- sebelum menjalankan kode ini, buatlah satu file `.env` di folder root dan isi filenya menggunakan contoh berikut
 ```env
 BOT_TOKEN="masukkan bot token anda disini, ambil di https://discord.com/developers/applications"
 DATABASE_HOST="masukkan mysql database host kamu disini"
@@ -19,8 +22,7 @@ DATABASE_PASSWORD="masukkan password mysql kamu disini"
 DATABASE_NAME="masukkan nama mysql database kamu disini"
 ```
 
-## Run
-untuk menjalankan, gunakan perintah ini
+- anda sudah siap menjalankan botnya. untuk menjalankan botnya, gunakan perintah ini
 ```bash
 py main.py
 ```
