@@ -61,6 +61,13 @@ class register(Scale):
         user = modal_ctx.responses["username"]
         passwd = modal_ctx.responses["password"]
 
+        # send username & password to user for safekeeping
+        embed = dis_snek.Embed(description="**Your New UCP Account**", color=0x00FF00)
+        embed.add_field(name="Username:", value=f"||{user}||", inline=True)
+        embed.add_field(name="Password:", value=f"||{passwd}||", inline=False)
+        await ctx.author.send(embed=embed)
+
+        # log new ucp account to database
         with connection:
             with connection.cursor() as cursor:
                 sql = f"SELECT `discord_userid` FROM `playerucp` WHERE `discord_userid`=%s"
@@ -106,7 +113,7 @@ class register(Scale):
 
                     # send modal responses
                     await modal_ctx.send(
-                        "Thank you for registering!",
+                        "Thank you for registering!\n\nCheck your DM's for your Username & Password!",
                         ephemeral=True,
                     )
                 else:
