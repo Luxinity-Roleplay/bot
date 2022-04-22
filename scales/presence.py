@@ -11,7 +11,6 @@ load_dotenv()
 
 
 class presence(Scale):
-
     @Task.create(IntervalTrigger(seconds=10))
     async def ganti(self):
         ip = os.getenv("IP")
