@@ -63,8 +63,8 @@ class register(Scale):
 
         with connection:
             with connection.cursor() as cursor:
-                sql = f"SELECT `discord_userid` FROM `playerucp` WHERE `discord_userid`={ctx.author.id}"
-                cursor.execute(sql)
+                sql = f"SELECT `discord_userid` FROM `playerucp` WHERE `discord_userid`=%s"
+                cursor.execute(sql, (ctx.author.id))
                 result = cursor.fetchone()
                 print(result)
 
@@ -73,6 +73,14 @@ class register(Scale):
                     hashed = bcrypt.hashpw(
                         passwd.encode("utf8"), bcrypt.gensalt()
                     ).decode("utf8")
+
+                    # add records to database
+                    sql = "INSERT INTO `playerucp` (`UCP`, `Password`, `discord_userid`) VALUES (%s, %s, %s)"
+                    cursor.execute(sql, (f"{user}", f"{hashed}", f"{ctx.author.id}"))
+
+                    # connection is not autocommit by default. So you must commit to save
+                    # your changes.
+                    connection.commit()
 
                     # send embed to ucp-logs
                     embed = dis_snek.Embed(title="New User Registered!", color=0x00FF00)
