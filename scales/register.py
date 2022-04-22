@@ -85,11 +85,11 @@ class register(Scale):
                     # send embed to ucp-logs
                     embed = dis_snek.Embed(title="New User Registered!", color=0x00FF00)
                     embed.add_field(name="Username:", value=user, inline=True)
-                    #embed.add_field(
+                    # embed.add_field(
                     #    name="Password:", value=f"||{passwd}||", inline=False
-                    #)
+                    # )
                     embed.add_field(
-                       name="Hashed Password:", value=f"||{hashed}||", inline=False
+                        name="Hashed Password:", value=f"||{hashed}||", inline=False
                     )
                     embed.set_author(
                         name=f"{ctx.author.username}#{ctx.author.discriminator}",
