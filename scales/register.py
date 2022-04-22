@@ -9,6 +9,7 @@ from dis_snek import (
 from dotenv import load_dotenv
 
 import os
+import logging
 import bcrypt
 import pymysql.cursors
 import datetime
@@ -71,16 +72,6 @@ class register(Scale):
                     user = modal_ctx.responses["username"]
                     passwd = modal_ctx.responses["password"]
 
-                    # send username & password to user for safekeeping
-                    embed = dis_snek.Embed(
-                        description="**Your New UCP Account**", color=0x00FF00
-                    )
-                    embed.add_field(name="Username:", value=f"||{user}||", inline=True)
-                    embed.add_field(
-                        name="Password:", value=f"||{passwd}||", inline=False
-                    )
-                    await ctx.author.send(embed=embed)
-
                     # hash passwords
                     hashed = bcrypt.hashpw(
                         passwd.encode("utf8"), bcrypt.gensalt()
@@ -113,11 +104,27 @@ class register(Scale):
                     embed.timestamp = datetime.datetime.utcnow()
                     await w.send(embed=embed)
 
-                    # send modal responses
-                    await modal_ctx.send(
-                        "Thank you for registering!\n\nCheck your DM's for your Username & Password!",
-                        ephemeral=True,
+                    # send username & password to user for safekeeping
+                    embed = dis_snek.Embed(
+                        description="**Your New UCP Account**", color=0x00FF00
                     )
+                    embed.add_field(name="Username:", value=f"||{user}||", inline=True)
+                    embed.add_field(
+                        name="Password:", value=f"||{passwd}||", inline=False
+                    )
+                    try:
+                        await ctx.author.send(embed=embed)
+                        await modal_ctx.send(
+                            "Thank you for registering!\n\nCheck your DM's for your Username & Password!\nTo reset your password, please use `/change-password` commands.",
+                            ephemeral=True,
+                        )
+                    except:
+                        logging.info(f"Can't send message to {ctx.author} :(")
+                        await modal_ctx.send(
+                            "Thank you for registering!\n\nUnfortunately your server dm's are closed and we can't send your Username & Password\nTo reset your password, please use `/change-password` commands.",
+                            ephemeral=True,
+                        )
+                    # send modal responses
                 else:
                     # send error message if user already registered
                     await ctx.send(

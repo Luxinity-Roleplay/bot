@@ -9,6 +9,7 @@ from dis_snek import (
 from dotenv import load_dotenv
 
 import os
+import logging
 import bcrypt
 import pymysql.cursors
 import datetime
@@ -62,15 +63,6 @@ class change_pass(Scale):
                     # get modal responses
                     passwd = modal_ctx.responses["password"]
 
-                    # send username & password to user for safekeeping
-                    embed = dis_snek.Embed(
-                        description="**Your New UCP Password**", color=0x00FF00
-                    )
-                    embed.add_field(
-                        name="Password:", value=f"||{passwd}||", inline=False
-                    )
-                    await ctx.author.send(embed=embed)
-
                     # hash passwords
                     hashed = bcrypt.hashpw(
                         passwd.encode("utf8"), bcrypt.gensalt()
@@ -104,11 +96,25 @@ class change_pass(Scale):
                     embed.timestamp = datetime.datetime.utcnow()
                     await w.send(embed=embed)
 
-                    # send modal responses
-                    await modal_ctx.send(
-                        "Your password has been changed!\n\nCheck your DM's for your new Password!",
-                        ephemeral=True,
+                    # send username & password to user for safekeeping
+                    embed = dis_snek.Embed(
+                        description="**Your New UCP Password**", color=0x00FF00
                     )
+                    embed.add_field(
+                        name="Password:", value=f"||{passwd}||", inline=False
+                    )
+                    try:
+                        await ctx.author.send(embed=embed)
+                        await modal_ctx.send(
+                            "Successfully changed your UCP Password.\n\nCheck your DM's for your Password!\nTo reset your password again, please use `/change-password` commands.",
+                            ephemeral=True,
+                        )
+                    except:
+                        logging.info(f"Can't send message to {ctx.author} :(")
+                        await modal_ctx.send(
+                            "Successfully changed your UCP Password.\n\nUnfortunately your server dm's are closed and we can't send your new Password\nTo reset your password again, please use `/change-password` commands.",
+                            ephemeral=True,
+                        )
                 else:
                     # send error message if user already registered
                     await ctx.send(
