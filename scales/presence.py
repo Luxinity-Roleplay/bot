@@ -4,6 +4,7 @@ from dis_snek.models.snek.tasks.triggers import IntervalTrigger
 from samp_client.client import SampClient
 from dotenv import load_dotenv
 
+import os
 import dis_snek
 
 load_dotenv()
