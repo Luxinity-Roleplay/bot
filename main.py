@@ -39,6 +39,7 @@ client = Snake(
 
 # load the cogs (scale)
 client.grow_scale("scales.register")
+client.grow_scale("scales.change_pass")
 client.grow_scale("scales.presence")
 
 
@@ -74,6 +75,7 @@ client.grow_scale("scales.presence")
     opt_type=OptionTypes.STRING,
     choices=[
         SlashCommandChoice(name="Register commands", value="register"),
+        SlashCommandChoice(name="Change password commands", value="change_pass"),
         SlashCommandChoice(name="Presence change events", value="presence"),
     ],
 )
