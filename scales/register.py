@@ -31,51 +31,56 @@ class register(Scale):
         "register", description="Register akun UCP (Max. 1 akun per discord user!)"
     )
     async def register(self, ctx):
+        # ping the mysql server
         connection.ping(reconnect=True)
-        my_modal = Modal(
-            title="Register UCP Luxinity Roleplay",
-            components=[
-                ShortText(
-                    label="UCP Username",
-                    custom_id="username",
-                    placeholder="Masukkan username UCP kamu (contoh: Abielfrl)",
-                    required=True,
-                ),
-                ShortText(
-                    label="Password",
-                    custom_id="password",
-                    placeholder="Masukkan password UCP kamu",
-                    required=True,
-                ),
-            ],
-        )
-        await ctx.send_modal(modal=my_modal)  # send modal to
 
-        modal_ctx: ModalContext = await self.bot.wait_for_modal(
-            my_modal
-        )  # wait for user to enter the credentials
-
-        w = self.bot.get_channel(966685759832723476)  # get channel to send the logs
-
-        # get modal responses
-        user = modal_ctx.responses["username"]
-        passwd = modal_ctx.responses["password"]
-
-        # send username & password to user for safekeeping
-        embed = dis_snek.Embed(description="**Your New UCP Account**", color=0x00FF00)
-        embed.add_field(name="Username:", value=f"||{user}||", inline=True)
-        embed.add_field(name="Password:", value=f"||{passwd}||", inline=False)
-        await ctx.author.send(embed=embed)
-
-        # log new ucp account to database
         with connection:
             with connection.cursor() as cursor:
+                # check if user is already registered
                 sql = f"SELECT `discord_userid` FROM `playerucp` WHERE `discord_userid`=%s"
                 cursor.execute(sql, (ctx.author.id))
                 result = cursor.fetchone()
-                print(result)
 
                 if result is None:
+                    my_modal = Modal(
+                        title="Register UCP Luxinity Roleplay",
+                        components=[
+                            ShortText(
+                                label="UCP Username",
+                                custom_id="username",
+                                placeholder="Masukkan username UCP kamu (contoh: Abielfrl)",
+                                required=True,
+                            ),
+                            ShortText(
+                                label="Password",
+                                custom_id="password",
+                                placeholder="Masukkan password UCP kamu",
+                                required=True,
+                            ),
+                        ],
+                    )
+                    await ctx.send_modal(modal=my_modal)  # send modal to users
+
+                    # wait for user to enter the credentials
+                    modal_ctx: ModalContext = await self.bot.wait_for_modal(my_modal)
+
+                    # get channel to send the logs
+                    w = self.bot.get_channel(966685759832723476)
+
+                    # get modal responses
+                    user = modal_ctx.responses["username"]
+                    passwd = modal_ctx.responses["password"]
+
+                    # send username & password to user for safekeeping
+                    embed = dis_snek.Embed(
+                        description="**Your New UCP Account**", color=0x00FF00
+                    )
+                    embed.add_field(name="Username:", value=f"||{user}||", inline=True)
+                    embed.add_field(
+                        name="Password:", value=f"||{passwd}||", inline=False
+                    )
+                    await ctx.author.send(embed=embed)
+
                     # hash passwords
                     hashed = bcrypt.hashpw(
                         passwd.encode("utf8"), bcrypt.gensalt()
@@ -92,9 +97,6 @@ class register(Scale):
                     # send embed to ucp-logs
                     embed = dis_snek.Embed(title="New User Registered!", color=0x00FF00)
                     embed.add_field(name="Username:", value=user, inline=True)
-                    # embed.add_field(
-                    #    name="Password:", value=f"||{passwd}||", inline=False
-                    # )
                     embed.add_field(
                         name="Hashed Password:", value=f"||{hashed}||", inline=False
                     )
@@ -118,7 +120,7 @@ class register(Scale):
                     )
                 else:
                     # send error message if user already registered
-                    await modal_ctx.send(
+                    await ctx.send(
                         "You're already registered! (1 UCP account per discord user)\nIf you're having trouble, contact an admin.",
                         ephemeral=True,
                     )
