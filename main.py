@@ -14,10 +14,7 @@ from dis_snek import (
     OptionTypes,
     context_menu,
     CommandTypes,
-    Task,
-    IntervalTrigger,
 )
-from samp_client.client import SampClient
 
 import dis_snek
 import logging
@@ -42,6 +39,7 @@ client = Snake(
 
 # load the cogs (scale)
 client.grow_scale("scales.register")
+client.grow_scale("scales.presence")
 
 
 @slash_command(
@@ -76,6 +74,7 @@ client.grow_scale("scales.register")
     opt_type=OptionTypes.STRING,
     choices=[
         SlashCommandChoice(name="Register commands", value="register"),
+        SlashCommandChoice(name="Presence change events", value="presence"),
     ],
 )
 async def reload(ctx: InteractionContext, scale: str):
@@ -87,19 +86,8 @@ async def reload(ctx: InteractionContext, scale: str):
     await ctx.send(embed=embed)
 
 
-@Task.create(IntervalTrigger(seconds=60))
-async def change_presence(self):
-    with SampClient(address=ip, port=port) as kung:
-        info = kung.get_server_info()
-    await client.change_presence(
-        status=Status.ONLINE,
-        activity=f"with {info.players}` / `{info.max_players} Players",
-    )
-
-
 @listen()  # this decorator tells snek that it needs to listen for the corresponding event, and run this coroutine
 async def on_ready():
-    # self.change_presence.start()
     logging.info("The Bot is Ready")
     print(f"This bot is Ready to roll and owned by {client.owner}")
 
