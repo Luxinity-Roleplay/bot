@@ -42,6 +42,7 @@ client.grow_scale("scales.register")
 client.grow_scale("scales.change")
 client.grow_scale("scales.presence")
 client.grow_scale("scales.setadmin")
+client.grow_scale("scales.support")
 
 
 @slash_command(
@@ -78,6 +79,7 @@ client.grow_scale("scales.setadmin")
         SlashCommandChoice(name="Register commands", value="register"),
         SlashCommandChoice(name="UCP Change commands", value="change"),
         SlashCommandChoice(name="Set admin commands", value="setadmin"),
+        SlashCommandChoice(name="Support events", value="support"),
         SlashCommandChoice(name="Presence change events", value="presence"),
     ],
 )
