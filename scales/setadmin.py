@@ -87,7 +87,7 @@ class setadmin(Scale):
                 description=f":x: You can't promote/demote with the same role as you!",
                 color=0xFF0000,
             )
-            await ctx.send(embed=embed)
+            await ctx.send(embed=embed, ephemeral=True)
             return
 
         if ctx.author.top_role.position < member.top_role.position:
@@ -95,7 +95,7 @@ class setadmin(Scale):
                 description=f":x: You can't promote/demote with roles higher than yours!",
                 color=0xFF0000,
             )
-            await ctx.send(embed=embed)
+            await ctx.send(embed=embed, ephemeral=True)
             return
 
         # ping the mysql server
