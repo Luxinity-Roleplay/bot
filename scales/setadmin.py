@@ -113,6 +113,14 @@ class setadmin(Scale):
             await ctx.send(embed=embed, ephemeral=True)
             return
 
+        if member.bot:
+            embed = Embed(
+                description=f":x: You can't promote/demote discord bot!",
+                color=0xFF0000,
+            )
+            await ctx.send(embed=embed, ephemeral=True)
+            return
+
         # ping the mysql server
         connection.ping(reconnect=True)
 
