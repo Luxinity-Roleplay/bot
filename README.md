@@ -20,6 +20,8 @@ DATABASE_HOST="masukkan mysql database host kamu disini"
 DATABASE_USER="masukkan username mysql kamu disini"
 DATABASE_PASSWORD="masukkan password mysql kamu disini"
 DATABASE_NAME="masukkan nama mysql database kamu disini"
+IP="ip server kamu, support domain dan ip"
+PORT="port server samp kamu"
 ```
 
 - anda sudah siap menjalankan botnya. untuk menjalankan botnya, gunakan perintah ini
