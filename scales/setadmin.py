@@ -6,12 +6,27 @@ from dis_snek import (
     Permission,
     PermissionTypes,
     Scale,
-    Embed
+    Embed,
 )
 from typing import Optional
+from dotenv import load_dotenv
 
+import os
+import logging
 import datetime
 import dis_snek
+import pymysql.cursors
+
+load_dotenv()
+
+# Connect to the database
+connection = pymysql.connect(
+    host=os.getenv("DATABASE_HOST"),
+    user=os.getenv("DATABASE_USER"),
+    password=os.getenv("DATABASE_PASSWORD"),
+    database=os.getenv("DATABASE_NAME"),
+    cursorclass=pymysql.cursors.DictCursor,
+)
 
 
 class setadmin(Scale):
