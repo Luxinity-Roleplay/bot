@@ -39,7 +39,7 @@ client = Snake(
 
 # load the cogs (scale)
 client.grow_scale("scales.register")
-client.grow_scale("scales.change_pass")
+client.grow_scale("scales.change")
 client.grow_scale("scales.presence")
 
 
