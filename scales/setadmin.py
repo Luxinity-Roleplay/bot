@@ -166,15 +166,15 @@ class setadmin(Scale):
                         title="User Promoted/Demoted", color=0x00FF00
                     )
                     embed.add_field(name="New Rank:", value=rank, inline=True)
+                    embed.add_field(name="Responsible Admin:", value=ctx.author.mention, inline=True)
                     embed.add_field(name="Reason:", value=reason, inline=False)
                     embed.set_author(
                         name=f"{member.username}#{member.discriminator}",
                         url=f"https://discordapp.com/users/{member.id}",
                         icon_url=member.avatar.url,
                     )
-                    embed.set_thumbnail(url=ctx.author.avatar.url)
                     embed.set_footer(
-                        text=f"{ctx.guild.name} | User ID: {ctx.author.id}",
+                        text=f"{ctx.guild.name} | User ID: {member.id}",
                         icon_url=ctx.guild.icon.url,
                     )
                     embed.timestamp = datetime.datetime.utcnow()
