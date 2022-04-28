@@ -32,4 +32,4 @@ py main.py
 ## License
 Seluruh source code ini menggunakan lisensi GNU GPL 2.0, Mohon mencantumkan Copyright notice saat anda menggunakan code ini!
 
-Copyright, ©️2022 GNZTMPZ ([sectumsempra#0001](https://discord.com/users/351150966948757504)).
+Copyright, ©️2022 GNZTMPZ ([mclemie#0001](https://discord.com/users/351150966948757504)).
