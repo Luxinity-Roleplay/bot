@@ -43,6 +43,7 @@ client.grow_scale("scales.change")
 client.grow_scale("scales.presence")
 client.grow_scale("scales.setadmin")
 client.grow_scale("scales.support")
+client.grow_scale("scales.announce")
 
 
 @slash_command(
@@ -81,6 +82,7 @@ client.grow_scale("scales.support")
         SlashCommandChoice(name="Set admin commands", value="setadmin"),
         SlashCommandChoice(name="Support events", value="support"),
         SlashCommandChoice(name="Presence change events", value="presence"),
+        SlashCommandChoice(name="Announcement events", value="announce"),
     ],
 )
 async def reload(ctx: InteractionContext, scale: str):
