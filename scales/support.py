@@ -17,65 +17,6 @@ thread_channel_id = 942417681703895100
 
 
 class Support(Scale):
-    @slash_command(
-        "support-init",
-        permissions=[
-            Permission(
-                id=727798940430237757,
-                guild_id=812150001089118210,
-                type=PermissionTypes.USER,
-                permission=True,
-            ),
-            Permission(
-                id=351150966948757504,
-                guild_id=812150001089118210,
-                type=PermissionTypes.USER,
-                permission=True,
-            ),
-            Permission(
-                id=812150001089118210,
-                guild_id=812150001089118210,
-                type=PermissionTypes.ROLE,
-                permission=False,
-            ),
-        ],
-    )
-    async def init(self, ctx: InteractionContext):
-        components: list[ActionRow] = [
-            ActionRow(
-                Button(
-                    style=ButtonStyles.SECONDARY,
-                    label="Report Bug",
-                    custom_id="create_bug_thread",
-                    emoji="🐛",
-                ),
-                Button(
-                    style=ButtonStyles.PRIMARY,
-                    label="Report Player",
-                    custom_id="create_player_thread",
-                    emoji="👨",
-                ),
-                Button(
-                    style=ButtonStyles.DANGER,
-                    label="Unban Request",
-                    custom_id="create_unban_thread",
-                    emoji="❓",
-                ),
-                Button(
-                    style=ButtonStyles.GREEN,
-                    label="Refund Request",
-                    custom_id="create_refund_thread",
-                    emoji="💰",
-                ),
-            )
-        ]
-        channel = await self.bot.fetch_channel(942754005333991444)
-        await channel.send(
-            "To get in touch with our staff, please choose your preferred help categories by pressing the button below.",
-            components=components,
-        )
-        await ctx.send("Success", ephemeral=True)
-
     async def bug_thread(self, ctx: InteractionContext):
         channel = await self.bot.fetch_channel(thread_channel_id)
 
