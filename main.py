@@ -44,6 +44,7 @@ client.grow_scale("scales.presence")
 client.grow_scale("scales.setadmin")
 client.grow_scale("scales.support")
 client.grow_scale("scales.announce")
+client.grow_scale("scales.github")
 
 
 @slash_command(
@@ -83,6 +84,7 @@ client.grow_scale("scales.announce")
         SlashCommandChoice(name="Support events", value="support"),
         SlashCommandChoice(name="Presence change events", value="presence"),
         SlashCommandChoice(name="Announcement events", value="announce"),
+        SlashCommandChoice(name="Github helper", value="github"),
     ],
 )
 async def reload(ctx: InteractionContext, scale: str):
