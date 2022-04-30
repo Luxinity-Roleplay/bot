@@ -29,7 +29,7 @@ cls_log.setLevel(logging.DEBUG)
 
 
 client = Snake(
-    intents=Intents.DEFAULT,
+    intents=Intents.ALL,
     sync_interactions=True,  # sync application commands with discord
     delete_unused_application_cmds=True,  # Delete commands that arent listed here
     asyncio_debug=True,  # Enable debug mode for asyncio
