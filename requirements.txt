@@ -4,3 +4,4 @@ python-dotenv
 samp-client
 PyMySQL
 bcrypt
+pygithub
