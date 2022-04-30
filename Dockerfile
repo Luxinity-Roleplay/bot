@@ -1,6 +1,6 @@
 FROM python:latest
 
-WORKDIR /luxinity-bot
+WORKDIR /luxinity-ucp
 
 COPY  . .
 
