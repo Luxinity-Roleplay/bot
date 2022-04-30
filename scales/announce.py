@@ -1,3 +1,5 @@
+# Credits to Discord-Snake-Pit/Dis-secretary
+
 from dis_snek.models import Scale, listen, GuildNews, Message
 
 
@@ -12,7 +14,7 @@ class announce(Scale):
                 print("publish failed")
                 pass
             else:
-                await message.add_reaction("📣")
+                print("publish succeeded")
 
 
 def setup(bot):
