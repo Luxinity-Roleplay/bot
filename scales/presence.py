@@ -13,26 +13,38 @@ load_dotenv()
 class presence(Scale):
     @Task.create(IntervalTrigger(seconds=10))
     async def ganti(self):
-        ip = os.getenv("IP")
-        port = os.getenv("PORT")
-        with SampClient(address=ip, port=port) as kung:
-            info = kung.get_server_info()
-        await self.bot.change_presence(
-            status=Status.ONLINE,
-            activity=f"with {info.players}/{info.max_players} Players",
-        )
+        try:
+            ip = os.getenv("IP")
+            port = os.getenv("PORT")
+            with SampClient(address=ip, port=port) as kung:
+                info = kung.get_server_info()
+            await self.bot.change_presence(
+                status=Status.ONLINE,
+                activity=f"with {info.players}/{info.max_players} Players",
+            )
+        except:
+            await self.bot.change_presence(
+                status=Status.DND,
+                activity="Server is Offline!",
+            )
 
     @listen()  # this decorator tells snek that it needs to listen for the corresponding event, and run this coroutine
     async def on_ready(self):
         self.ganti.start()
-        ip = os.getenv("IP")
-        port = os.getenv("PORT")
-        with SampClient(address=ip, port=port) as kung:
-            info = kung.get_server_info()
-        await self.bot.change_presence(
-            status=Status.ONLINE,
-            activity=f"with {info.players}/{info.max_players} Players",
-        )
+        try:
+            ip = os.getenv("IP")
+            port = os.getenv("PORT")
+            with SampClient(address=ip, port=port) as kung:
+                info = kung.get_server_info()
+            await self.bot.change_presence(
+                status=Status.ONLINE,
+                activity=f"with {info.players}/{info.max_players} Players",
+            )
+        except:
+            await self.bot.change_presence(
+                status=Status.DND,
+                activity="Server is Offline!",
+            )
 
 
 def setup(bot):
