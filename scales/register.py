@@ -104,6 +104,10 @@ class register(Scale):
                     embed.timestamp = datetime.datetime.utcnow()
                     await w.send(embed=embed)
 
+                    # add ucp registered role to user
+                    ping_id = 971802984218517514
+                    await ctx.author.add_role(ping_id, f"{user} just Registered, giving them the UCP role..")
+
                     # send username & password to user for safekeeping
                     manusya = dis_snek.Embed(
                         description="**Your New UCP Account**", color=0x17A168
