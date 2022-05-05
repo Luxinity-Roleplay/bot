@@ -49,7 +49,7 @@ class ready(Scale):
             components=[
                 Button(
                     style=ButtonStyles.BLURPLE,
-                    label="Click here to take @Players role!",
+                    label="I accept the Server Rules",
                     custom_id="assign_role",
                     emoji="<:Luxinity:971789146492395591>",
                 )
