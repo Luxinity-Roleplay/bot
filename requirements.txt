@@ -5,3 +5,4 @@ samp-client
 PyMySQL
 bcrypt
 pygithub
+algoliasearch
