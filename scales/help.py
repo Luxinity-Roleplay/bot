@@ -15,13 +15,13 @@ class help(Scale):
 
     @slash_command("wiki", description="Scour our wiki for an article")
     @slash_option(
-        name="plugin_name",
+        name="article_name",
         description="Name of the article to find",
         required=True,
         opt_type=OptionTypes.STRING,
     )
-    async def wiki(self, ctx, *, plugin_name):
-        results = await self.index.search_async(plugin_name)
+    async def wiki(self, ctx, *, article_name):
+        results = await self.index.search_async(article_name)
         description = ""
         hits = []
         for hit in results["hits"]:
