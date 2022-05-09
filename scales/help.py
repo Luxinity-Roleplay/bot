@@ -13,7 +13,7 @@ class help(Scale):
         self.search_client = SearchClient.create(app_id, api_key)
         self.index = self.search_client.init_index("docs")
 
-    @slash_command("wiki", description="Scour our wiki for an article")
+    @slash_command("luxinity-wiki", description="Scour our wiki for an article")
     @slash_option(
         name="article_name",
         description="Name of the article to find",
