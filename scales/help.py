@@ -34,7 +34,7 @@ class help(Scale):
             if len(hits) == 10:
                 break
         embed = dis_snek.Embed(
-            title="Your help has arrived!",
+            title=f"Documentation Search Results: {article_name}",
             description=description,
             color=0x7289DA,
         )
