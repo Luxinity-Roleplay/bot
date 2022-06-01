@@ -1,4 +1,4 @@
-git+https://github.com/Discord-Snake-Pit/Dis-Snek.git@dev
+git+https://github.com/NAFTeam/NAFF.git@dev
 orjson
 python-dotenv
 samp-client
