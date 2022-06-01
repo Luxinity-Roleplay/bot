@@ -1,9 +1,9 @@
 # Credits to Discord-Snake-Pit/Dis-secretary
 
-from dis_snek.models import Scale, listen, GuildNews, Message
+from naff.models import Extension, listen, GuildNews, Message
 
 
-class announce(Scale):
+class announce(Extension):
     @listen()
     async def on_message_create(self, event):
         message: Message = event.message

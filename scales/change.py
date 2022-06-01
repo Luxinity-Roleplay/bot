@@ -1,10 +1,11 @@
-from dis_snek import (
+from naff import (
     slash_command,
     Modal,
     ShortText,
     cooldown,
     Buckets,
-    Scale,
+    Extension,
+    Embed
 )
 from dotenv import load_dotenv
 
@@ -13,7 +14,6 @@ import logging
 import bcrypt
 import pymysql.cursors
 import datetime
-import dis_snek
 
 load_dotenv()
 
@@ -27,7 +27,7 @@ connection = pymysql.connect(
 )
 
 
-class change(Scale):
+class change(Extension):
     @slash_command(
         "change-username", description="Ganti username UCP anda gapake ribeddd!"
     )
@@ -74,7 +74,7 @@ class change(Scale):
                     connection.commit()
 
                     # send embed to ucp-logs
-                    embed = dis_snek.Embed(
+                    embed = Embed(
                         title="UCP Username changed!", color=0x00FF00
                     )
                     embed.add_field(
@@ -94,7 +94,7 @@ class change(Scale):
                     await w.send(embed=embed)
 
                     # send username & password to user for safekeeping
-                    manusya = dis_snek.Embed(
+                    manusya = Embed(
                         description="**Your New UCP Username**", color=0x17A168
                     )
                     manusya.add_field(name="Username:", value=f"{usern}", inline=False)
@@ -168,7 +168,7 @@ class change(Scale):
                     connection.commit()
 
                     # send embed to ucp-logs
-                    embed = dis_snek.Embed(
+                    embed = Embed(
                         title="UCP Password changed!", color=0x00FF00
                     )
                     embed.add_field(
@@ -188,7 +188,7 @@ class change(Scale):
                     await w.send(embed=embed)
 
                     # send username & password to user for safekeeping
-                    manusya = dis_snek.Embed(
+                    manusya = Embed(
                         description="**Your New UCP Password**", color=0x17A168
                     )
                     manusya.add_field(
@@ -215,5 +215,5 @@ class change(Scale):
 
 
 def setup(bot):
-    # This is called by dis-snek so it knows how to load the Scale
+    # This is called by dis-snek so it knows how to load the Extension
     change(bot)
