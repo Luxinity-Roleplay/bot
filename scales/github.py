@@ -9,8 +9,8 @@ from pathlib import Path
 import aiohttp
 import github.GithubException
 import requests
-from dis_snek import (
-    Scale,
+from naff import (
+    Extension,
     Message,
     Embed,
     MaterialColors,
@@ -31,7 +31,7 @@ snippet_regex = re.compile(
 )
 
 
-class github(Scale):
+class github(Extension):
     def __init__(self, bot):
         self.git = Github(os.getenv("GITHUB_TOKEN"))
         self.repo = self.git.get_repo("Luxinity-Roleplay/LXRP")

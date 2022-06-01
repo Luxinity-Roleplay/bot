@@ -1,16 +1,16 @@
-from dis_snek import listen, Scale, Status
-from dis_snek.models.snek.tasks import Task
-from dis_snek.models.snek.tasks.triggers import IntervalTrigger
+from naff import listen, Extension, Status
+from naff.models.naff.tasks import Task
+from naff.models.naff.tasks.triggers import IntervalTrigger
 from samp_client.client import SampClient
 from dotenv import load_dotenv
 
 import os
-import dis_snek
+import naff
 
 load_dotenv()
 
 
-class presence(Scale):
+class presence(Extension):
     @Task.create(IntervalTrigger(seconds=10))
     async def ganti(self):
         try:
@@ -28,7 +28,7 @@ class presence(Scale):
                 activity="Server is Offline!",
             )
 
-    @listen()  # this decorator tells snek that it needs to listen for the corresponding event, and run this coroutine
+    @listen()  # this decorator tells naff that it needs to listen for the corresponding event, and run this coroutine
     async def on_ready(self):
         self.ganti.start()
         try:
@@ -48,5 +48,5 @@ class presence(Scale):
 
 
 def setup(bot):
-    # This is called by dis-snek so it knows how to load the Scale
+    # This is called by dis-naff so it knows how to load the Extension
     presence(bot)

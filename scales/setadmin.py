@@ -1,20 +1,20 @@
-from dis_snek import (
+from naff import (
     slash_command,
     slash_option,
     OptionTypes,
     SlashCommandChoice,
-    Permission,
-    PermissionTypes,
-    Scale,
+    Extension,
+    check,
     Embed,
 )
 from typing import Optional
 from dotenv import load_dotenv
+from utilities.checks import *
 
 import os
 import logging
 import datetime
-import dis_snek
+import naff
 import pymysql.cursors
 
 load_dotenv()
@@ -29,36 +29,10 @@ connection = pymysql.connect(
 )
 
 
-class setadmin(Scale):
+class setadmin(Extension):
     @slash_command(
         "set-admin",
         description="Set a player admin level",
-        permissions=[
-            Permission(
-                id=846702912118063114,  # founder
-                guild_id=812150001089118210,
-                type=PermissionTypes.ROLE,
-                permission=True,
-            ),
-            Permission(
-                id=966679659733479544,  # developer
-                guild_id=812150001089118210,
-                type=PermissionTypes.ROLE,
-                permission=True,
-            ),
-            Permission(
-                id=851290742038200391,  # management
-                guild_id=812150001089118210,
-                type=PermissionTypes.ROLE,
-                permission=True,
-            ),
-            Permission(
-                id=812150001089118210,  # denied @everyone role
-                guild_id=812150001089118210,
-                type=PermissionTypes.ROLE,
-                permission=False,
-            ),
-        ],
     )
     @slash_option(
         name="member",
@@ -88,10 +62,11 @@ class setadmin(Scale):
         OptionTypes.STRING,
         required=False,
     )
+    @check(member_permissions(Permissions.ADMINISTRATOR))
     async def set_admin(
         self,
         ctx,
-        member: dis_snek.Member,
+        member: naff.Member,
         level: int,
         reason: Optional[str] = "No reason provided",
     ):
@@ -162,7 +137,7 @@ class setadmin(Scale):
                         rank = "Founder"
 
                     # send embed to ucp-logs
-                    embed = dis_snek.Embed(
+                    embed = Embed(
                         title="User Promoted/Demoted", color=0x00FF00
                     )
                     embed.add_field(name="New Rank:", value=rank, inline=True)

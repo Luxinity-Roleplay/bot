@@ -1,20 +1,19 @@
-from dis_snek import (
-    Scale,
+from naff import (
+    Extension,
     Button,
     ButtonStyles,
     InteractionContext,
     AutoArchiveDuration,
     ChannelTypes,
-    Permission,
-    PermissionTypes,
     listen,
     slash_command,
     ActionRow,
+    Embed
 )
 from dotenv import load_dotenv
 from github import Github
 
-import dis_snek
+import naff
 import os
 
 
@@ -31,7 +30,7 @@ first_file = list(gist.files.values())[0]
 results = first_file.raw_data["content"]
 
 
-class ready(Scale):
+class ready(Extension):
     @listen()  # this decorator tells snek that it needs to listen for the corresponding event, and run this coroutine
     async def on_ready(self):
         server = self.bot.get_guild(server_id)
@@ -39,7 +38,7 @@ class ready(Scale):
         rtc_channel = await server.fetch_channel(rtc)
         rtc_text = await rtc_channel.fetch_message(rtc_msg)
 
-        embed = dis_snek.Embed(
+        embed = Embed(
             description=f"{results}",
             color=0x3874FF,
         )

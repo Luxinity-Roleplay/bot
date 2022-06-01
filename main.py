@@ -1,103 +1,112 @@
-from dis_snek import (
-    Snake,
-    Intents,
-    listen,
-    Status,
-    Scale,
-    slash_command,
-    slash_permission,
-    SlashCommandChoice,
-    Permission,
-    PermissionTypes,
-    InteractionContext,
-    slash_option,
-    OptionTypes,
-    context_menu,
-    CommandTypes,
-)
-
-import dis_snek
 import logging
 import os
+import sys
+
+import naff
 from dotenv import load_dotenv
+from naff import (
+    Activity,
+    ActivityType,
+    Client,
+    CommandTypes,
+    Embed,
+    Intents,
+    InteractionContext,
+    OptionTypes,
+    Permissions,
+    PrefixedContext,
+    SlashCommandChoice,
+    Status,
+    check,
+    context_menu,
+    listen,
+    prefixed_command,
+    slash_command,
+    slash_option,
+)
+
+from utilities.checks import *
 
 load_dotenv()
 
-logging.basicConfig()
-cls_log = logging.getLogger(dis_snek.const.logger_name)
-cls_log.setLevel(logging.DEBUG)
-
-
-client = Snake(
+client = Client(
     intents=Intents.ALL,
     sync_interactions=True,  # sync application commands with discord
     delete_unused_application_cmds=True,  # Delete commands that arent listed here
-    asyncio_debug=True,  # Enable debug mode for asyncio
     debug_scope=812150001089118210,  # Override the commands scope, and only create them in this guild
 )
 # during testing, we recommend setting `debug_scope`, this forces your commands to only be registered in the listed guild
 
-# load the cogs (scale)
-client.grow_scale("scales.register")
-client.grow_scale("scales.change")
-client.grow_scale("scales.presence")
-client.grow_scale("scales.setadmin")
-client.grow_scale("scales.support")
-client.grow_scale("scales.announce")
-client.grow_scale("scales.github")
-client.grow_scale("scales.ready")
-client.grow_scale("scales.help")
+# load the Extensions (scale)
+for root, dirs, files in os.walk("scales"):
+    for file in files:
+        if file.endswith(".py") and not file.startswith("__init__"):
+            file = file.removesuffix(".py")
+            path = os.path.join(root, file)
+            python_import_path = path.replace("/", ".").replace("\\", ".")
+
+            # load the scale
+            client.load_extension(python_import_path)
 
 
-@slash_command(
-    "regrow",
-    description="regrow a scale",
-    scopes=[812150001089118210],
-    permissions=[
-        Permission(
-            id=727798940430237757,
-            guild_id=812150001089118210,
-            type=PermissionTypes.USER,
-            permission=True,
-        ),
-        Permission(
-            id=351150966948757504,
-            guild_id=812150001089118210,
-            type=PermissionTypes.USER,
-            permission=True,
-        ),
-        Permission(
-            id=812150001089118210,
-            guild_id=812150001089118210,
-            type=PermissionTypes.ROLE,
-            permission=False,
-        ),
-    ],
-)
-@slash_option(
-    name="scale",
-    description="the scale to regrow",
-    required=True,
-    opt_type=OptionTypes.STRING,
-    choices=[
-        SlashCommandChoice(name="Register commands", value="register"),
-        SlashCommandChoice(name="UCP Change commands", value="change"),
-        SlashCommandChoice(name="Set admin commands", value="setadmin"),
-        SlashCommandChoice(name="Support events", value="support"),
-        SlashCommandChoice(name="Presence change events", value="presence"),
-        SlashCommandChoice(name="Announcement events", value="announce"),
-        SlashCommandChoice(name="Github helper", value="github"),
-        SlashCommandChoice(name="Ready events", value="ready"),
-        SlashCommandChoice(name="Wiki commands", value="wiki"),
-    ],
-)
-async def reload(ctx: InteractionContext, scale: str):
-    client.regrow_scale(f"scales.{scale}")
-    embed = dis_snek.Embed(
-        description=f"<:check:839158727512293406> **{scale}** has been successfully regrown!",
+@prefixed_command(name="load")
+@check(is_owner())
+async def load(ctx: PrefixedContext, scale: str):
+    client.load_extension(f"scales.{scale}")
+    embed = Embed(
+        description=f"<:check:839158727512293406> **{scale}** has been successfully growed!",
         color=0x00FF00,
     )
     await ctx.send(embed=embed)
+
+
+@prefixed_command(name="unload")
+@check(is_owner())
+async def unload(ctx: PrefixedContext, scale: str):
+    client.unload_extension(f"scales.{scale}")
+    embed = Embed(
+        description=f"<:check:839158727512293406> **{scale}** has been successfully ungrowed!",
+        color=0x00FF00,
+    )
+    await ctx.send(embed=embed)
+
+
+@prefixed_command(name="reload")
+@check(is_owner())
+async def reload(ctx: PrefixedContext, scale: str):
+    client.reload_extension(f"scales.{scale}")
+    embed = Embed(
+        description=f"<:check:839158727512293406> **{scale}** has been successfully regrowed!",
+        color=0x00FF00,
+    )
+    await ctx.send(embed=embed)
+
+
+def restart_program():
+    python = sys.executable
+    os.execl(python, python, *sys.argv)
+
+
+@prefixed_command(name="reboot")
+@check(is_owner())
+async def reboot(ctx: PrefixedContext):
+    embed = Embed(
+        description=f":wave: The bot has been Rebooting, Please Wait..",
+        color=0xE74C3C,
+    )
+    await ctx.send(embed=embed)
+    restart_program()
+
+
+@prefixed_command(name="shutdown")
+@check(is_owner())
+async def shutdown(ctx: PrefixedContext):
+    embed = Embed(
+        description=f":wave: The bot has been Shutdowned, Goodbye World.",
+        color=0xE74C3C,
+    )
+    await ctx.send(embed=embed)
+    await client.stop()
 
 
 @listen()  # this decorator tells snek that it needs to listen for the corresponding event, and run this coroutine

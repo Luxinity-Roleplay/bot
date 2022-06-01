@@ -1,6 +1,5 @@
-from dis_snek import (
-    message_command,
-    Scale,
+from naff import (
+    Extension,
     Button,
     ButtonStyles,
     InteractionContext,
@@ -9,14 +8,12 @@ from dis_snek import (
     listen,
     slash_command,
     ActionRow,
-    Permission,
-    PermissionTypes,
 )
 
 thread_channel_id = 942417681703895100
 
 
-class Support(Scale):
+class Support(Extension):
     async def bug_thread(self, ctx: InteractionContext):
         channel = await self.bot.fetch_channel(thread_channel_id)
 

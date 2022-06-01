@@ -1,10 +1,11 @@
-from dis_snek import (
+from naff import (
     slash_command,
     Modal,
     ShortText,
     cooldown,
     Buckets,
-    Scale,
+    Extension,
+    Embed
 )
 from dotenv import load_dotenv
 
@@ -13,7 +14,7 @@ import logging
 import bcrypt
 import pymysql.cursors
 import datetime
-import dis_snek
+import naff
 
 load_dotenv()
 
@@ -27,7 +28,7 @@ connection = pymysql.connect(
 )
 
 
-class register(Scale):
+class register(Extension):
     @slash_command(
         "register", description="Register akun UCP (Max. 1 akun per discord user!)"
     )
@@ -86,7 +87,7 @@ class register(Scale):
                     connection.commit()
 
                     # send embed to ucp-logs
-                    embed = dis_snek.Embed(title="New User Registered!", color=0x00FF00)
+                    embed = Embed(title="New User Registered!", color=0x00FF00)
                     embed.add_field(name="Username:", value=user, inline=True)
                     embed.add_field(
                         name="Hashed Password:", value=f"||{hashed}||", inline=False
@@ -109,7 +110,7 @@ class register(Scale):
                     await ctx.author.add_role(ping_id, f"{user} just Registered, giving them the UCP role..")
 
                     # send username & password to user for safekeeping
-                    manusya = dis_snek.Embed(
+                    manusya = Embed(
                         description="**Your New UCP Account**", color=0x17A168
                     )
                     manusya.add_field(
@@ -140,5 +141,5 @@ class register(Scale):
 
 
 def setup(bot):
-    # This is called by dis-snek so it knows how to load the Scale
+    # This is called by dis-snek so it knows how to load the Extension
     register(bot)
