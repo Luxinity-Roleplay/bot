@@ -1,4 +1,4 @@
-git+https://github.com/NAFTeam/NAFF.git@dev
+naff
 orjson
 python-dotenv
 samp-client
