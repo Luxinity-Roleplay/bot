@@ -1,8 +1,8 @@
+algoliasearch
+bcrypt
 naff
 orjson
+pygithub
+PyMySQL
 python-dotenv
 samp-client
-PyMySQL
-bcrypt
-pygithub
-algoliasearch

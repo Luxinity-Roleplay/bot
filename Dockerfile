@@ -1,10 +1,22 @@
-FROM python:latest
+FROM python:3.10.3
 
-WORKDIR /luxinity-ucp
+# we want stdout
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-COPY  . .
+# add the path to pythonpath
+ENV PYTHONPATH "${PYTHONPATH}:/app"
 
-RUN python -m pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+# install uvloop for faster asyncio
+RUN pip3.10 install uvloop
 
-CMD [ "python", "./main.py" ]
+# install the requirements
+COPY ./requirements.txt /app/requirements.txt
+RUN pip3.10 install -r /app/requirements.txt
+
+# copy over the source files
+COPY ./ /app/
+
+# start the bot
+WORKDIR /app
+CMD ["python3.10", "main.py"]

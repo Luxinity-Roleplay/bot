@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  luxinity-ucp:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - luxinity-ucp-network
+    restart:
+      always
+
+networks:
+  luxinity-ucp-network:

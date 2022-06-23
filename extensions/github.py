@@ -12,17 +12,8 @@ import github.GithubException
 import requests
 from dotenv import load_dotenv
 from github import Github
-from naff import (
-    Button,
-    ButtonStyles,
-    ComponentContext,
-    Embed,
-    Extension,
-    MaterialColors,
-    Message,
-    component_callback,
-    listen,
-)
+from naff import (Button, ButtonStyles, ComponentContext, Embed, Extension,
+                  MaterialColors, Message, component_callback, listen)
 
 load_dotenv()
 snippet_regex = re.compile(

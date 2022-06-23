@@ -1,14 +1,6 @@
-from naff import (
-    ActionRow,
-    AutoArchiveDuration,
-    Button,
-    ButtonStyles,
-    ChannelTypes,
-    Extension,
-    InteractionContext,
-    listen,
-    slash_command,
-)
+from naff import (ActionRow, AutoArchiveDuration, Button, ButtonStyles,
+                  ChannelTypes, Extension, InteractionContext, listen,
+                  slash_command)
 
 thread_channel_id = 942417681703895100
 

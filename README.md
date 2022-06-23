@@ -1,18 +1,22 @@
-# Luxinity Discord Server Bots / UCP System
+# Luxinity-UCP
 
 [![Discord server](https://img.shields.io/discord/812150001089118210?label=Join%20our%20Discord%20Server%21)](https://discord.gg/U7nXFpDrXd) [![Build Production](https://img.shields.io/github/workflow/status/Luxinity-Roleplay/Luxinity-UCP/Build%20Production/master)](https://github.com/Luxinity-Roleplay/Luxinity-UCP/actions/workflows/build.yml) [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Luxinity-Roleplay/Luxinity-UCP/master.svg)](https://results.pre-commit.ci/latest/github/Luxinity-Roleplay/Luxinity-UCP/master) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Luxinity Roleplay Discord Server Bots & UCP System written in `dis-snek` (python)
+Luxinity Roleplay Discord Server Bots & UCP System made with [NAFF](https://github.com/Discord-Snake-Pit/NAFF).
+
+Kunjungi [panduan resmi NAFF](https://naff.readthedocs.io/Guides/01%20Getting%20Started/) untuk memulai.
 
 #### Note:
 
-Tidak disarankan untuk menjalankan monorepo ini secara langsung tanpa merubah codingan apapun (walaupun monorepo ini sudah Production Ready) karena monorepo ini telah didesign khusus hanya untuk Luxinity Roleplay. Repository ini dibuat publik hanya untuk media belajar/referensi.
+Tidak disarankan untuk menjalankan repository ini secara langsung tanpa merubah codingan apapun (walaupun repository ini sudah Production Ready) karena repository ini telah didesign khusus hanya untuk Luxinity Roleplay. Repository ini dibuat publik hanya untuk media belajar/referensi.
 
-## Testing/Workflows
+## Menjalankan Aplikasi
+
+Ada beberapa cara untuk menjalankan aplikasi ini.
 
 ### Docker
 
-Monorepo ini sudah _Docker Ready_, anda hanya tinggal meng-pull container nya. Cek selengkapnya di [halaman ini!](https://github.com/Luxinity-Roleplay/Luxinity-UCP/pkgs/container/luxinity-ucp)
+Repository ini sudah _Docker Ready_, anda hanya tinggal meng-pull container nya. Cek selengkapnya di [halaman ini!](https://github.com/Luxinity-Roleplay/Luxinity-UCP/pkgs/container/luxinity-ucp)
 
 - Pastikan Docker anda sudah terinstall versi terbaru!
 - Anda hanya butuh menjalankan command:
@@ -40,7 +44,9 @@ pip install -r ".\requirements.txt"
 - sebelum menjalankan kode ini, buatlah satu file `.env` di folder root dan isi filenya menggunakan contoh berikut
 
 ```env
-BOT_TOKEN="masukkan bot token anda disini, ambil di https://discord.com/developers/applications"
+PROJECT_NAME="Luxinity-UCP"
+LOAD_DEBUG_COMMANDS=true # untuk production ready, ganti value ini ke false
+DISCORD_TOKEN="masukkan bot token anda disini, ambil di https://discord.com/developers/applications"
 DATABASE_HOST="masukkan mysql database host kamu disini"
 DATABASE_USER="masukkan username mysql kamu disini"
 DATABASE_PASSWORD="masukkan password mysql kamu disini"
@@ -58,8 +64,16 @@ GIST_ID2="ucp-manager readme gist id"
 py main.py
 ```
 
+## Informasi Tambahan
+Kami sudah siapkan konfigurasi [pre-commit](https://pre-commit.com) bawaan untuk merapihkan kodingan kalian.
+
+Sangat direkomendasikan untuk menggunakan tool ini dengan menjalankan perintah berikut:
+
+1) `pip install pre-commit`
+2) `pre-commit install`
+
 ## License
 
 Seluruh source code ini menggunakan lisensi GNU GPL 2.0, Mohon mencantumkan Copyright notice saat anda menggunakan code ini!
 
-Copyright ©️2022 Clemie McCartney ([mclemie#0001](https://discord.com/users/351150966948757504)). Licensed to Luxinity Roleplay.
+Copyright ©️2022 Clemie McCartney ([clemie#0001](https://discord.com/users/351150966948757504)). Licensed to Luxinity Roleplay.
