@@ -1,6 +1,6 @@
 # Luxinity Discord Server Bots / UCP System
 
-[![Discord server](https://img.shields.io/discord/812150001089118210?label=Join%20our%20Discord%20Server%21)](https://discord.gg/U7nXFpDrXd) [![Build Production](https://img.shields.io/github/workflow/status/Luxinity-Roleplay/Luxinity-UCP/Build%20Production/master)](https://github.com/Luxinity-Roleplay/Luxinity-UCP/actions/workflows/build.yml) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Discord server](https://img.shields.io/discord/812150001089118210?label=Join%20our%20Discord%20Server%21)](https://discord.gg/U7nXFpDrXd) [![Build Production](https://img.shields.io/github/workflow/status/Luxinity-Roleplay/Luxinity-UCP/Build%20Production/master)](https://github.com/Luxinity-Roleplay/Luxinity-UCP/actions/workflows/build.yml) [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Luxinity-Roleplay/Luxinity-UCP/master.svg)](https://results.pre-commit.ci/latest/github/Luxinity-Roleplay/Luxinity-UCP/master) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Luxinity Roleplay Discord Server Bots & UCP System written in `dis-snek` (python)
 
@@ -47,6 +47,9 @@ DATABASE_PASSWORD="masukkan password mysql kamu disini"
 DATABASE_NAME="masukkan nama mysql database kamu disini"
 IP="ip server kamu, support domain dan ip"
 PORT="port server samp kamu"
+GITHUB_TOKEN="github personal access token kamu untuk meng-akses gist dan repository server"
+GIST_ID="read-this-channel readme gist id"
+GIST_ID2="ucp-manager readme gist id"
 ```
 
 - anda sudah siap menjalankan botnya. untuk menjalankan botnya, gunakan perintah ini
