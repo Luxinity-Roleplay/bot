@@ -1,11 +1,11 @@
-from naff import listen, Extension, Status
+import os
+
+import naff
+from dotenv import load_dotenv
+from naff import Extension, Status, listen
 from naff.models.naff.tasks import Task
 from naff.models.naff.tasks.triggers import IntervalTrigger
 from samp_client.client import SampClient
-from dotenv import load_dotenv
-
-import os
-import naff
 
 load_dotenv()
 

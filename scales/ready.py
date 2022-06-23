@@ -1,29 +1,28 @@
-from naff import (
-    Extension,
-    Button,
-    ButtonStyles,
-    InteractionContext,
-    AutoArchiveDuration,
-    ChannelTypes,
-    listen,
-    slash_command,
-    ActionRow,
-    Embed,
-    Modal, 
-    ShortText, 
-    cooldown, 
-    Buckets,
-)
-from dotenv import load_dotenv
-from github import Github
-
-import logging
-import bcrypt
-import pymysql.cursors
 import datetime
-import naff
+import logging
 import os
 
+import bcrypt
+import naff
+import pymysql.cursors
+from dotenv import load_dotenv
+from github import Github
+from naff import (
+    ActionRow,
+    AutoArchiveDuration,
+    Buckets,
+    Button,
+    ButtonStyles,
+    ChannelTypes,
+    Embed,
+    Extension,
+    InteractionContext,
+    Modal,
+    ShortText,
+    cooldown,
+    listen,
+    slash_command,
+)
 
 load_dotenv()
 
@@ -46,6 +45,7 @@ gist2 = client.get_gist(os.getenv("GIST_ID2"))
 second_file = list(gist2.files.values())[0]
 results2 = second_file.raw_data["content"]
 
+
 class ready(Extension):
     @listen()  # this decorator tells snek that it needs to listen for the corresponding event, and run this coroutine
     async def on_ready(self):
@@ -58,7 +58,7 @@ class ready(Extension):
         acc_channel = await server.fetch_channel(acc)
         acc_text = await acc_channel.fetch_message(acc_msg)
 
-        embed1 = Embed(color=0x00ff00)
+        embed1 = Embed(color=0x00FF00)
         embed1.title = "Account Manager"
         embed1.description = results2
         embed1.set_footer(
@@ -121,7 +121,7 @@ class ready(Extension):
                 return await ctx.send(
                     f"The <@&{ping_id}> role has been added", ephemeral=True
                 )
-        
+
         if ctx.custom_id == "register":
             # Connect to the database
             connection = pymysql.connect(
@@ -162,7 +162,9 @@ class ready(Extension):
                         await ctx.send_modal(modal=my_modal)  # send modal to users
 
                         # wait for user to enter the credentials
-                        modal_ctx: ModalContext = await self.bot.wait_for_modal(my_modal)
+                        modal_ctx: ModalContext = await self.bot.wait_for_modal(
+                            my_modal
+                        )
 
                         # get channel to send the logs
                         w = self.bot.get_channel(966685759832723476)
@@ -178,7 +180,9 @@ class ready(Extension):
 
                         # add records to database
                         sql = "INSERT INTO `playerucp` (`UCP`, `Password`, `discord_userid`) VALUES (%s, %s, %s)"
-                        cursor.execute(sql, (f"{user}", f"{hashed}", f"{ctx.author.id}"))
+                        cursor.execute(
+                            sql, (f"{user}", f"{hashed}", f"{ctx.author.id}")
+                        )
 
                         # connection is not autocommit by default. So you must commit to save
                         # your changes.
@@ -206,7 +210,8 @@ class ready(Extension):
                         # add ucp registered role to user
                         ping_id = 971802984218517514
                         await ctx.author.add_role(
-                            ping_id, f"{user} just Registered, giving them the UCP role.."
+                            ping_id,
+                            f"{user} just Registered, giving them the UCP role..",
                         )
 
                         # send username & password to user for safekeeping
@@ -272,7 +277,9 @@ class ready(Extension):
                         await ctx.send_modal(modal=my_modal)  # send modal to users
 
                         # wait for user to enter the credentials
-                        modal_ctx: ModalContext = await self.bot.wait_for_modal(my_modal)
+                        modal_ctx: ModalContext = await self.bot.wait_for_modal(
+                            my_modal
+                        )
 
                         # get channel to send the logs
                         w = self.bot.get_channel(966685759832723476)
@@ -310,7 +317,9 @@ class ready(Extension):
                         manusya = Embed(
                             description="**Your New UCP Username**", color=0x17A168
                         )
-                        manusya.add_field(name="Username:", value=f"{usern}", inline=False)
+                        manusya.add_field(
+                            name="Username:", value=f"{usern}", inline=False
+                        )
                         try:
                             await ctx.author.send(embed=manusya)
                             await modal_ctx.send(
@@ -338,7 +347,7 @@ class ready(Extension):
                 database=os.getenv("DATABASE_NAME"),
                 cursorclass=pymysql.cursors.DictCursor,
             )
-            
+
             # ping the mysql server
             connection.ping(reconnect=True)
 
@@ -364,7 +373,9 @@ class ready(Extension):
                         await ctx.send_modal(modal=my_modal)  # send modal to users
 
                         # wait for user to enter the credentials
-                        modal_ctx: ModalContext = await self.bot.wait_for_modal(my_modal)
+                        modal_ctx: ModalContext = await self.bot.wait_for_modal(
+                            my_modal
+                        )
 
                         # get channel to send the logs
                         w = self.bot.get_channel(966685759832723476)
@@ -388,7 +399,9 @@ class ready(Extension):
                         # send embed to ucp-logs
                         embed = Embed(title="UCP Password changed!", color=0x00FF00)
                         embed.add_field(
-                            name="New Hashed Password:", value=f"||{hashed}||", inline=False
+                            name="New Hashed Password:",
+                            value=f"||{hashed}||",
+                            inline=False,
                         )
                         embed.set_author(
                             name=f"{ctx.author.username}#{ctx.author.discriminator}",
