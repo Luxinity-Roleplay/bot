@@ -71,23 +71,6 @@ class setadmin(Extension):
         level: int,
         reason: Optional[str] = "No reason provided",
     ):
-        # check if user has role same with the author and/or higher role than the target
-
-        if ctx.author.top_role == member.top_role:
-            embed = Embed(
-                description=f":x: You can't promote/demote with the same role as you!",
-                color=0xFF0000,
-            )
-            await ctx.send(embed=embed, ephemeral=True)
-            return
-
-        if ctx.author.top_role.position < member.top_role.position:
-            embed = Embed(
-                description=f":x: You can't promote/demote with roles higher than yours!",
-                color=0xFF0000,
-            )
-            await ctx.send(embed=embed, ephemeral=True)
-            return
 
         if member.bot:
             embed = Embed(
