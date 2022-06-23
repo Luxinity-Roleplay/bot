@@ -227,13 +227,13 @@ class ready(Extension):
                         try:
                             await ctx.author.send(embed=manusya)
                             await modal_ctx.send(
-                                "Thank you for registering!\n\nCheck your DM's for your Username & Password!\nTo reset your password, please use `/change-password` commands.",
+                                "Thank you for registering!\n\nCheck your DM's for your Username & Password!\nTo reset your password, please refer to <#967246558745722970> and select 'Change/Forget Password' button.",
                                 ephemeral=True,
                             )
                         except:
                             logging.info(f"Can't send message to {ctx.author} :(")
                             await modal_ctx.send(
-                                "Thank you for registering!\n\nUnfortunately your server dm's are closed and we can't send your Username & Password\nTo reset your password, please use `/change-password` commands.",
+                                "Thank you for registering!\n\nUnfortunately your server dm's are closed and we can't send your Username & Password\nTo reset your password, please refer to <#967246558745722970> and select 'Change/Forget Password' button.",
                                 ephemeral=True,
                             )
                         # send modal responses
@@ -335,7 +335,7 @@ class ready(Extension):
                     else:
                         # send error message if user already registered
                         await ctx.send(
-                            "We can't find your UCP account!\n\nPlease register first using `/register`!",
+                            "We can't find your UCP account!\n\nPlease register at <#967246558745722970> and select 'Register Account' button.",
                             ephemeral=True,
                         )
 
@@ -426,19 +426,19 @@ class ready(Extension):
                         try:
                             await ctx.author.send(embed=manusya)
                             await modal_ctx.send(
-                                "Successfully changed your UCP Password.\n\nCheck your DM's for your Password!\nTo reset your password again, please use `/change-password` commands.",
+                                "Successfully changed your UCP Password.\n\nCheck your DM's for your Password!\nTo reset your password again, please refer to <#967246558745722970> and select 'Change/Forget Password' button.",
                                 ephemeral=True,
                             )
                         except:
                             logging.info(f"Can't send message to {ctx.author} :(")
                             await modal_ctx.send(
-                                "Successfully changed your UCP Password.\n\nUnfortunately your server dm's are closed and we can't send your new Password :(\nTo reset your password again, please use `/change-password` commands.",
+                                "Successfully changed your UCP Password.\n\nUnfortunately your server dm's are closed and we can't send your new Password :(\nTo reset your password again, please refer to <#967246558745722970> and select 'Change/Forget Password' button.",
                                 ephemeral=True,
                             )
                     else:
                         # send error message if user already registered
                         await ctx.send(
-                            "We can't find your UCP account!\n\nPlease register first using `/register`!",
+                            "We can't find your UCP account!\n\nPlease register at <#967246558745722970> and select 'Register Account' button.",
                             ephemeral=True,
                         )
 
