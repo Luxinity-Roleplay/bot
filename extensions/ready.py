@@ -7,10 +7,22 @@ import naff
 import pymysql.cursors
 from dotenv import load_dotenv
 from github import Github
-from naff import (ActionRow, AutoArchiveDuration, Buckets, Button,
-                  ButtonStyles, ChannelTypes, Embed, Extension,
-                  InteractionContext, Modal, ShortText, cooldown, listen,
-                  slash_command)
+from naff import (
+    ActionRow,
+    AutoArchiveDuration,
+    Buckets,
+    Button,
+    ButtonStyles,
+    ChannelTypes,
+    Embed,
+    Extension,
+    InteractionContext,
+    Modal,
+    ShortText,
+    cooldown,
+    listen,
+    slash_command,
+)
 
 load_dotenv()
 

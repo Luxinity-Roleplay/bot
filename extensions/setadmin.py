@@ -6,8 +6,15 @@ from typing import Optional
 import naff
 import pymysql.cursors
 from dotenv import load_dotenv
-from naff import (Embed, Extension, OptionTypes, SlashCommandChoice, check,
-                  slash_command, slash_option)
+from naff import (
+    Embed,
+    Extension,
+    OptionTypes,
+    SlashCommandChoice,
+    check,
+    slash_command,
+    slash_option,
+)
 
 from utilities.checks import *
 
