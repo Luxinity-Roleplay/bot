@@ -1,21 +1,22 @@
-from naff import (
-    slash_command,
-    slash_option,
-    OptionTypes,
-    SlashCommandChoice,
-    Extension,
-    check,
-    Embed,
-)
-from typing import Optional
-from dotenv import load_dotenv
-from utilities.checks import *
-
-import os
-import logging
 import datetime
+import logging
+import os
+from typing import Optional
+
 import naff
 import pymysql.cursors
+from dotenv import load_dotenv
+from naff import (
+    Embed,
+    Extension,
+    OptionTypes,
+    SlashCommandChoice,
+    check,
+    slash_command,
+    slash_option,
+)
+
+from utilities.checks import *
 
 load_dotenv()
 
@@ -70,23 +71,6 @@ class setadmin(Extension):
         level: int,
         reason: Optional[str] = "No reason provided",
     ):
-        # check if user has role same with the author and/or higher role than the target
-
-        if ctx.author.top_role == member.top_role:
-            embed = Embed(
-                description=f":x: You can't promote/demote with the same role as you!",
-                color=0xFF0000,
-            )
-            await ctx.send(embed=embed, ephemeral=True)
-            return
-
-        if ctx.author.top_role.position < member.top_role.position:
-            embed = Embed(
-                description=f":x: You can't promote/demote with roles higher than yours!",
-                color=0xFF0000,
-            )
-            await ctx.send(embed=embed, ephemeral=True)
-            return
 
         if member.bot:
             embed = Embed(
@@ -137,11 +121,11 @@ class setadmin(Extension):
                         rank = "Founder"
 
                     # send embed to ucp-logs
-                    embed = Embed(
-                        title="User Promoted/Demoted", color=0x00FF00
-                    )
+                    embed = Embed(title="User Promoted/Demoted", color=0x00FF00)
                     embed.add_field(name="New Rank:", value=rank, inline=True)
-                    embed.add_field(name="Responsible Admin:", value=ctx.author.mention, inline=True)
+                    embed.add_field(
+                        name="Responsible Admin:", value=ctx.author.mention, inline=True
+                    )
                     embed.add_field(name="Reason:", value=reason, inline=False)
                     embed.set_author(
                         name=f"{member.username}#{member.discriminator}",

@@ -1,6 +1,7 @@
 # Credits to Discord-Snake-Pit/Dis-secretary
 
 import asyncio
+import os
 import re
 import textwrap
 import traceback
@@ -9,21 +10,19 @@ from pathlib import Path
 import aiohttp
 import github.GithubException
 import requests
-from naff import (
-    Extension,
-    Message,
-    Embed,
-    MaterialColors,
-    listen,
-    ButtonStyles,
-    Button,
-    component_callback,
-    ComponentContext,
-)
-from github import Github
 from dotenv import load_dotenv
-import os
-
+from github import Github
+from naff import (
+    Button,
+    ButtonStyles,
+    ComponentContext,
+    Embed,
+    Extension,
+    MaterialColors,
+    Message,
+    component_callback,
+    listen,
+)
 
 load_dotenv()
 snippet_regex = re.compile(

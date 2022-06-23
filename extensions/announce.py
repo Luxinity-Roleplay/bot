@@ -1,6 +1,6 @@
 # Credits to Discord-Snake-Pit/Dis-secretary
 
-from naff.models import Extension, listen, GuildNews, Message
+from naff.models import Extension, GuildNews, Message, listen
 
 
 class announce(Extension):
