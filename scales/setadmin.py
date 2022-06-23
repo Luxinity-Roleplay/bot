@@ -137,11 +137,11 @@ class setadmin(Extension):
                         rank = "Founder"
 
                     # send embed to ucp-logs
-                    embed = Embed(
-                        title="User Promoted/Demoted", color=0x00FF00
-                    )
+                    embed = Embed(title="User Promoted/Demoted", color=0x00FF00)
                     embed.add_field(name="New Rank:", value=rank, inline=True)
-                    embed.add_field(name="Responsible Admin:", value=ctx.author.mention, inline=True)
+                    embed.add_field(
+                        name="Responsible Admin:", value=ctx.author.mention, inline=True
+                    )
                     embed.add_field(name="Reason:", value=reason, inline=False)
                     embed.set_author(
                         name=f"{member.username}#{member.discriminator}",
