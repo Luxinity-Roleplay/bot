@@ -5,9 +5,22 @@ import naff
 import pymysql.cursors
 from dotenv import load_dotenv
 from millify import prettify
-from naff import (AutocompleteContext, Button, ButtonStyles, Embed, Extension,
-                  MessageTypes, OptionTypes, Permissions, PrefixedContext,
-                  check, listen, prefixed_command, slash_command, slash_option)
+from naff import (
+    AutocompleteContext,
+    Button,
+    ButtonStyles,
+    Embed,
+    Extension,
+    MessageTypes,
+    OptionTypes,
+    Permissions,
+    PrefixedContext,
+    check,
+    listen,
+    prefixed_command,
+    slash_command,
+    slash_option,
+)
 
 from utilities.checks import *
 
@@ -24,7 +37,6 @@ connection = pymysql.connect(
 
 
 class stats(Extension):
-
     @slash_command(
         "stats",
         description="Show a player character stats",
@@ -47,7 +59,10 @@ class stats(Extension):
                 result = cursor.fetchone()
 
                 if result is None:
-                    return await ctx.send("We can't find that character on our system, Please check for typo's or try to create a character!", ephemeral=True)
+                    return await ctx.send(
+                        "We can't find that character on our system, Please check for typo's or try to create a character!",
+                        ephemeral=True,
+                    )
                 else:
                     # define things we want to use
                     name = result["Name"]
@@ -84,14 +99,16 @@ class stats(Extension):
                     time_hour = result["Hours"]
                     time_min = result["Minutes"]
                     time_sec = result["Second"]
-                    
+
                     # define the embed
                     embed = Embed(color=0x00FF00)
                     embed.set_author(
                         name=f"{name}'s Stats",
                         icon_url=ctx.guild.icon.url,
                     )
-                    embed.add_field(name="Character Name:", value=f"{name}", inline=False)
+                    embed.add_field(
+                        name="Character Name:", value=f"{name}", inline=False
+                    )
                     embed.add_field(name="UCP Account:", value=f"{ucp}", inline=False)
                     embed.add_field(name="Gender:", value=f"{gender}", inline=True)
                     embed.add_field(name="Age:", value=f"{age}", inline=True)
@@ -99,16 +116,28 @@ class stats(Extension):
                     embed.add_field(name="Health:", value=f"{health}%", inline=True)
                     embed.add_field(name="Armor:", value=f"{armor}", inline=True)
                     embed.add_field(name="Level:", value=f"{level}", inline=True)
-                    embed.add_field(name="In-game:", value=f"{time_hour} **Hour(s)** {time_min} **Minute(s)** {time_hour} **Second(s)**", inline=False)
-                    embed.add_field(name="Money:", value=f"Pocket: **$**{pocket_money} | Bank: **$**{bank_money}", inline=False)
-                    embed.set_image(url=f"https://assets.open.mp/assets//images/skins/{skin}.png")
+                    embed.add_field(
+                        name="In-game:",
+                        value=f"{time_hour} **Hour(s)** {time_min} **Minute(s)** {time_hour} **Second(s)**",
+                        inline=False,
+                    )
+                    embed.add_field(
+                        name="Money:",
+                        value=f"Pocket: **$**{pocket_money} | Bank: **$**{bank_money}",
+                        inline=False,
+                    )
+                    embed.set_image(
+                        url=f"https://assets.open.mp/assets//images/skins/{skin}.png"
+                    )
                     embed.set_footer(
-                        text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url
+                        text=f"Requested by {ctx.author}",
+                        icon_url=ctx.author.avatar.url,
                     )
                     embed.timestamp = datetime.datetime.utcnow()
 
                     # send the embed
                     return await ctx.send(embed=embed)
+
 
 def setup(bot):
     # This is called by dis-snek so it knows how to load the Extension
