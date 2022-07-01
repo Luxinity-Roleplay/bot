@@ -111,10 +111,12 @@ class stats(Extension):
                 draw = ImageDraw.Draw(img)
                 # Make sure you insert a valid font from your folder.
                 values = ImageFont.truetype("assets/ARIALUNI.otf", 70)
-                
+
                 #    (x,y)::↓ ↓ ↓ (text)::↓ ↓     (r,g,b)::↓ ↓ ↓
                 async with aiohttp.ClientSession() as session:
-                    async with session.get(f"https://assets.open.mp/assets//images/skins/{skin}.png") as response:
+                    async with session.get(
+                        f"https://assets.open.mp/assets//images/skins/{skin}.png"
+                    ) as response:
                         image = await response.read()
                 avatar = (
                     Image.open(BytesIO(image))
@@ -123,11 +125,13 @@ class stats(Extension):
                 )
                 img.paste(avatar, (1135, 240))
 
-                
                 # Save our files.
                 img.save(f"assets/card.png")
                 ffile = naff.File(f"assets/card.png")
-                return await ctx.send(f"{ctx.author.mention}, Here's [`{name}`] character stats", file=ffile)
+                return await ctx.send(
+                    f"{ctx.author.mention}, Here's [`{name}`] character stats",
+                    file=ffile,
+                )
 
     @stats.autocomplete("name")
     async def stats_autocomplete(self, ctx: AutocompleteContext, name: str):
