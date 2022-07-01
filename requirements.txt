@@ -1,7 +1,9 @@
 algoliasearch
 bcrypt
+millify
 naff
 orjson
+pillow
 pygithub
 PyMySQL
 python-dotenv
