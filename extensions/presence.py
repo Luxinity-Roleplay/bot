@@ -2,7 +2,7 @@ import os
 
 import naff
 from dotenv import load_dotenv
-from naff import Extension, Status, Activity, ActivityType, listen
+from naff import Activity, ActivityType, Extension, Status, listen
 from naff.models.naff.tasks import Task
 from naff.models.naff.tasks.triggers import IntervalTrigger
 from samp_client.client import SampClient
