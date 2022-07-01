@@ -20,12 +20,17 @@ class presence(Extension):
                 info = kung.get_server_info()
             await self.bot.change_presence(
                 status=Status.ONLINE,
-                activity=Activity(name=f"with {info.players}/{info.max_players} Players", type=ActivityType.COMPETING),
+                activity=Activity(
+                    name=f"with {info.players}/{info.max_players} Players",
+                    type=ActivityType.COMPETING,
+                ),
             )
         except:
             await self.bot.change_presence(
                 status=Status.DND,
-                activity=Activity(name=f"Server is Offline!", type=ActivityType.WATCHING),
+                activity=Activity(
+                    name=f"Server is Offline!", type=ActivityType.WATCHING
+                ),
             )
 
     @listen()  # this decorator tells naff that it needs to listen for the corresponding event, and run this coroutine
