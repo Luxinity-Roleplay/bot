@@ -1,6 +1,8 @@
 import datetime
 import os
 
+import aiohttp
+from io import BytesIO
 import naff
 import pymysql.cursors
 from dotenv import load_dotenv
@@ -21,6 +23,7 @@ from naff import (
     slash_command,
     slash_option,
 )
+from PIL import Image, ImageDraw, ImageFont
 
 from utilities.checks import *
 
@@ -48,6 +51,9 @@ class stats(Extension):
         opt_type=OptionTypes.STRING,
     )
     async def stats(self, ctx, name=str):
+        # need to be deferred, otherwise it will be failed
+        await ctx.defer()
+
         # ping the mysql server
         connection.ping(reconnect=True)
 
@@ -100,43 +106,28 @@ class stats(Extension):
                     time_min = result["Minutes"]
                     time_sec = result["Second"]
 
-                    # define the embed
-                    embed = Embed(color=0x00FF00)
-                    embed.set_author(
-                        name=f"{name}'s Stats",
-                        icon_url=ctx.guild.icon.url,
-                    )
-                    embed.add_field(
-                        name="Character Name:", value=f"{name}", inline=False
-                    )
-                    embed.add_field(name="UCP Account:", value=f"{ucp}", inline=False)
-                    embed.add_field(name="Gender:", value=f"{gender}", inline=True)
-                    embed.add_field(name="Age:", value=f"{age}", inline=True)
-                    embed.add_field(name="Origin:", value=f"{origin}", inline=True)
-                    embed.add_field(name="Health:", value=f"{health}%", inline=True)
-                    embed.add_field(name="Armor:", value=f"{armor}", inline=True)
-                    embed.add_field(name="Level:", value=f"{level}", inline=True)
-                    embed.add_field(
-                        name="In-game:",
-                        value=f"{time_hour} **Hour(s)** {time_min} **Minute(s)** {time_hour} **Second(s)**",
-                        inline=False,
-                    )
-                    embed.add_field(
-                        name="Money:",
-                        value=f"Pocket: **$**{pocket_money} | Bank: **$**{bank_money}",
-                        inline=False,
-                    )
-                    embed.set_image(
-                        url=f"https://assets.open.mp/assets//images/skins/{skin}.png"
-                    )
-                    embed.set_footer(
-                        text=f"Requested by {ctx.author}",
-                        icon_url=ctx.author.avatar.url,
-                    )
-                    embed.timestamp = datetime.datetime.utcnow()
+                # Replace blanko.png with your background image.
+                img = Image.open("assets/blanko.png")
+                draw = ImageDraw.Draw(img)
+                # Make sure you insert a valid font from your folder.
+                values = ImageFont.truetype("assets/ARIALUNI.otf", 70)
+                
+                #    (x,y)::↓ ↓ ↓ (text)::↓ ↓     (r,g,b)::↓ ↓ ↓
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(f"https://assets.open.mp/assets//images/skins/{skin}.png") as response:
+                        image = await response.read()
+                avatar = (
+                    Image.open(BytesIO(image))
+                    .resize((300, 390), Image.LANCZOS)
+                    .convert("RGB")
+                )
+                img.paste(avatar, (1135, 240))
 
-                    # send the embed
-                    return await ctx.send(embed=embed)
+                
+                # Save our files.
+                img.save(f"assets/card.png")
+                ffile = naff.File(f"assets/card.png")
+                return await ctx.send(f"{ctx.author.mention}, Here's [`{name}`] character stats", file=ffile)
 
     @stats.autocomplete("name")
     async def stats_autocomplete(self, ctx: AutocompleteContext, name: str):
