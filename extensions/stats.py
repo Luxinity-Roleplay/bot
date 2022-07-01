@@ -1,8 +1,8 @@
 import datetime
 import os
+from io import BytesIO
 
 import aiohttp
-from io import BytesIO
 import naff
 import pymysql.cursors
 from dotenv import load_dotenv
@@ -110,7 +110,8 @@ class stats(Extension):
                 img = Image.open("assets/blanko.png")
                 draw = ImageDraw.Draw(img)
                 # Make sure you insert a valid font from your folder.
-                values = ImageFont.truetype("assets/ARIALUNI.otf", 70)
+                values = ImageFont.truetype("assets/ARIALUNI.otf", 40)
+                date_values = ImageFont.truetype("assets/ARIALUNI.otf", 35)
 
                 #    (x,y)::↓ ↓ ↓ (text)::↓ ↓     (r,g,b)::↓ ↓ ↓
                 async with aiohttp.ClientSession() as session:
@@ -125,6 +126,78 @@ class stats(Extension):
                 )
                 img.paste(avatar, (1135, 240))
 
+                # Draw the text
+
+                # Nama
+                draw.text(
+                    (450, 255),
+                    f"{name}",
+                    (0, 0, 0),
+                    font=values,
+                )
+                # Asal/Origin
+                draw.text(
+                    (450, 305),
+                    f"{origin}",
+                    (0, 0, 0),
+                    font=values,
+                )
+                # Gender
+                draw.text(
+                    (450, 355),
+                    f"{gender}",
+                    (0, 0, 0),
+                    font=values,
+                )
+                # Pocket
+                draw.text(
+                    (450, 405),
+                    f"${pocket_money}",
+                    (0, 0, 0),
+                    font=values,
+                )
+                # Bank
+                draw.text(
+                    (450, 455),
+                    f"${bank_money}",
+                    (0, 0, 0),
+                    font=values,
+                )
+                # Ingame Time
+                draw.text(
+                    (450, 505),
+                    f"{time_hour} JAM | {time_min} MENIT | {time_hour} DETIK",
+                    (0, 0, 0),
+                    font=values,
+                )
+                # Health
+                draw.text(
+                    (450, 555),
+                    f"{health}",
+                    (0, 0, 0),
+                    font=values,
+                )
+                # Armor
+                draw.text(
+                    (450, 605),
+                    f"{armor}",
+                    (0, 0, 0),
+                    font=values,
+                )
+                # Expire Date
+                draw.text(
+                    (450, 655),
+                    f"SEUMUR HIDUP",
+                    (0, 0, 0),
+                    font=values,
+                )
+                # Date
+                draw.text(
+                    (1195, 665),
+                    f"{datetime.datetime.now().strftime('%d-%m-%Y')}",
+                    (0, 0, 0),
+                    font=date_values,
+                )
                 # Save our files.
                 img.save(f"assets/card.png")
                 ffile = naff.File(f"assets/card.png")
