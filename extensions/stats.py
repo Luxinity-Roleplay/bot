@@ -150,11 +150,12 @@ class stats(Extension):
                 # check if character is already registered
                 sql = f"SELECT `Name` FROM `characters` WHERE `Name`=%s"
                 cursor.execute(sql, (name))
-                
-                for (Name) in cursor:
+
+                for Name in cursor:
                     choices.append({"name": f"{name}", "value": f"{name}"})
                     await ctx.send(choices=choices)
-                    
+
+
 def setup(bot):
     # This is called by dis-snek so it knows how to load the Extension
     stats(bot)
