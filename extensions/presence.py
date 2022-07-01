@@ -2,7 +2,7 @@ import os
 
 import naff
 from dotenv import load_dotenv
-from naff import Extension, Status, listen
+from naff import Extension, Status, ActivityType, listen
 from naff.models.naff.tasks import Task
 from naff.models.naff.tasks.triggers import IntervalTrigger
 from samp_client.client import SampClient
@@ -20,12 +20,12 @@ class presence(Extension):
                 info = kung.get_server_info()
             await self.bot.change_presence(
                 status=Status.ONLINE,
-                activity=f"with {info.players}/{info.max_players} Players",
+                activity=Activity(name=f"with {info.players}/{info.max_players} Players", type=ActivityType.COMPETING),
             )
         except:
             await self.bot.change_presence(
                 status=Status.DND,
-                activity="Server is Offline!",
+                activity=Activity(name=f"Server is Offline!", type=ActivityType.WATCHING),
             )
 
     @listen()  # this decorator tells naff that it needs to listen for the corresponding event, and run this coroutine
