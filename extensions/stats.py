@@ -138,7 +138,23 @@ class stats(Extension):
                     # send the embed
                     return await ctx.send(embed=embed)
 
+    @stats.autocomplete("name")
+    async def stats_autocomplete(self, ctx: AutocompleteContext, name: str):
+        choices = []
 
+        # ping the mysql server
+        connection.ping(reconnect=True)
+
+        with connection:
+            with connection.cursor() as cursor:
+                # check if character is already registered
+                sql = f"SELECT `Name` FROM `characters` WHERE `Name`=%s"
+                cursor.execute(sql, (name))
+                
+                for (Name) in cursor:
+                    choices.append({"name": f"{name}", "value": f"{name}"})
+                    await ctx.send(choices=choices)
+                    
 def setup(bot):
     # This is called by dis-snek so it knows how to load the Extension
     stats(bot)
