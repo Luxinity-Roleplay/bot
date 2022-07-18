@@ -356,7 +356,7 @@ class stats(Extension):
                     for i in range(10):
                         embed.add_field(
                             name=f"{result['Name']}",
-                            value=f"${result['Level']}",
+                            value=f"Level {result['Level']}",
                             inline=False,
                         )
                         result = cursor.fetchone()
