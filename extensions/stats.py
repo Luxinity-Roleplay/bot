@@ -222,8 +222,8 @@ class stats(Extension):
                 for Name in cursor:
                     choices.append({"name": f"{name}", "value": f"{name}"})
                     await ctx.send(choices=choices)
-    
-    #leaderboards systems
+
+    # leaderboards systems
 
     @slash_command(
         name="leaderboards",
@@ -257,7 +257,7 @@ class stats(Extension):
                     embed = Embed(
                         title="Server Leaderboards",
                         description="Richest characters wallet in this server",
-                        color=0x00ff00,
+                        color=0x00FF00,
                     )
 
                     # add the top 10 richest characters
@@ -304,7 +304,7 @@ class stats(Extension):
                     embed = Embed(
                         title="Server Leaderboards",
                         description="Richest characters bank money in this server",
-                        color=0x00ff00,
+                        color=0x00FF00,
                     )
 
                     # add the top 10 richest characters
@@ -318,7 +318,7 @@ class stats(Extension):
 
                     # send the embed
                     await ctx.send(embed=embed)
-    
+
     @slash_command(
         name="leaderboards",
         description="Show server leaderboards",
@@ -349,7 +349,7 @@ class stats(Extension):
                     embed = Embed(
                         title="Server Leaderboards",
                         description="Highest Character Level in this server",
-                        color=0x00ff00,
+                        color=0x00FF00,
                     )
 
                     # add the top 10 richest characters
