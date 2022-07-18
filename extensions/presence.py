@@ -21,7 +21,7 @@ class presence(Extension):
             await self.bot.change_presence(
                 status=Status.ONLINE,
                 activity=Activity(
-                    name=f"with {info.players}/{info.max_players} Players",
+                    name=f"Luxinity Roleplay with {info.players}/{info.max_players} Players!",
                     type=ActivityType.COMPETING,
                 ),
             )

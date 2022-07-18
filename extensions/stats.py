@@ -223,6 +223,147 @@ class stats(Extension):
                     choices.append({"name": f"{name}", "value": f"{name}"})
                     await ctx.send(choices=choices)
 
+    # leaderboards systems
+
+    @slash_command(
+        name="leaderboards",
+        description="Show server leaderboards",
+        group_name="rich",
+        group_description="Richest leaderboards",
+        sub_cmd_name="wallet",
+        sub_cmd_description="Show richest characters wallet in this server",
+    )
+    async def lb_wallet_rich(self, ctx):
+        # need to be deferred, otherwise it will be failed
+        await ctx.defer()
+
+        # ping the mysql server
+        connection.ping(reconnect=True)
+
+        with connection:
+            with connection.cursor() as cursor:
+                # check if character is already registered
+                sql = f"SELECT * FROM characters ORDER BY Money DESC;"
+                cursor.execute(sql)
+                result = cursor.fetchone()
+
+                if result is None:
+                    return await ctx.send(
+                        "We can't find any data in the database.",
+                        ephemeral=True,
+                    )
+                else:
+                    # create the embed
+                    embed = Embed(
+                        title="Server Leaderboards",
+                        description="Richest characters wallet in this server",
+                        color=0x00FF00,
+                    )
+
+                    # add the top 10 richest characters
+                    for i in range(10):
+                        embed.add_field(
+                            name=f"{result['Name']}",
+                            value=f"${result['Money']}",
+                            inline=False,
+                        )
+                        result = cursor.fetchone()
+
+                    # send the embed
+                    await ctx.send(embed=embed)
+
+    @slash_command(
+        name="leaderboards",
+        description="Show server leaderboards",
+        group_name="rich",
+        group_description="Richest leaderboards",
+        sub_cmd_name="bank",
+        sub_cmd_description="Show richest characters bank account in this server",
+    )
+    async def lb_bank_rich(self, ctx):
+        # need to be deferred, otherwise it will be failed
+        await ctx.defer()
+
+        # ping the mysql server
+        connection.ping(reconnect=True)
+
+        with connection:
+            with connection.cursor() as cursor:
+                # check if character is already registered
+                sql = f"SELECT * FROM characters ORDER BY BankMoney DESC;"
+                cursor.execute(sql)
+                result = cursor.fetchone()
+
+                if result is None:
+                    return await ctx.send(
+                        "We can't find any data in the database.",
+                        ephemeral=True,
+                    )
+                else:
+                    # create the embed
+                    embed = Embed(
+                        title="Server Leaderboards",
+                        description="Richest characters bank money in this server",
+                        color=0x00FF00,
+                    )
+
+                    # add the top 10 richest characters
+                    for i in range(10):
+                        embed.add_field(
+                            name=f"{result['Name']}",
+                            value=f"${result['BankMoney']}",
+                            inline=False,
+                        )
+                        result = cursor.fetchone()
+
+                    # send the embed
+                    await ctx.send(embed=embed)
+
+    @slash_command(
+        name="leaderboards",
+        description="Show server leaderboards",
+        sub_cmd_name="level",
+        sub_cmd_description="Show highest level in this server",
+    )
+    async def lb_level(self, ctx):
+        # need to be deferred, otherwise it will be failed
+        await ctx.defer()
+
+        # ping the mysql server
+        connection.ping(reconnect=True)
+
+        with connection:
+            with connection.cursor() as cursor:
+                # check if character is already registered
+                sql = f"SELECT * FROM characters ORDER BY Level DESC;"
+                cursor.execute(sql)
+                result = cursor.fetchone()
+
+                if result is None:
+                    return await ctx.send(
+                        "We can't find any data in the database.",
+                        ephemeral=True,
+                    )
+                else:
+                    # create the embed
+                    embed = Embed(
+                        title="Server Leaderboards",
+                        description="Highest Character Level in this server",
+                        color=0x00FF00,
+                    )
+
+                    # add the top 10 richest characters
+                    for i in range(10):
+                        embed.add_field(
+                            name=f"{result['Name']}",
+                            value=f"Level {result['Level']}",
+                            inline=False,
+                        )
+                        result = cursor.fetchone()
+
+                    # send the embed
+                    await ctx.send(embed=embed)
+
 
 def setup(bot):
     # This is called by dis-snek so it knows how to load the Extension
