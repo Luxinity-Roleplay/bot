@@ -243,34 +243,27 @@ class stats(Extension):
         with connection:
             with connection.cursor() as cursor:
                 # check if character is already registered
-                sql = f"SELECT * FROM characters ORDER BY Money DESC;"
+                sql = f"SELECT * FROM characters ORDER BY Money DESC LIMIT 5;"
                 cursor.execute(sql)
-                result = cursor.fetchone()
+                result = cursor.fetchall()
 
-                if result is None:
-                    return await ctx.send(
-                        "We can't find any data in the database.",
-                        ephemeral=True,
+                # create the embed
+                embed = Embed(
+                    title="Server Leaderboards",
+                    description="Richest characters wallet in this server",
+                    color=0x00FF00,
+                )
+
+                # add the top 10 richest characters
+                for i in result:
+                    embed.add_field(
+                        name=f"{i['Name']}",
+                        value=f"${i['Money']}",
+                        inline=False,
                     )
-                else:
-                    # create the embed
-                    embed = Embed(
-                        title="Server Leaderboards",
-                        description="Richest characters wallet in this server",
-                        color=0x00FF00,
-                    )
 
-                    # add the top 10 richest characters
-                    for i in range(10):
-                        embed.add_field(
-                            name=f"{result['Name']}",
-                            value=f"${result['Money']}",
-                            inline=False,
-                        )
-                        result = cursor.fetchone()
-
-                    # send the embed
-                    await ctx.send(embed=embed)
+                # send the embed
+                await ctx.send(embed=embed)
 
     @slash_command(
         name="leaderboards",
@@ -290,34 +283,27 @@ class stats(Extension):
         with connection:
             with connection.cursor() as cursor:
                 # check if character is already registered
-                sql = f"SELECT * FROM characters ORDER BY BankMoney DESC;"
+                sql = f"SELECT * FROM characters ORDER BY BankMoney DESC LIMIT 5;"
                 cursor.execute(sql)
-                result = cursor.fetchone()
+                result = cursor.fetchall()
 
-                if result is None:
-                    return await ctx.send(
-                        "We can't find any data in the database.",
-                        ephemeral=True,
+                # create the embed
+                embed = Embed(
+                    title="Server Leaderboards",
+                    description="Richest characters bank money in this server",
+                    color=0x00FF00,
+                )
+
+                # add the top 10 richest characters
+                for i in result:
+                    embed.add_field(
+                        name=f"{i['Name']}",
+                        value=f"${i['BankMoney']}",
+                        inline=False,
                     )
-                else:
-                    # create the embed
-                    embed = Embed(
-                        title="Server Leaderboards",
-                        description="Richest characters bank money in this server",
-                        color=0x00FF00,
-                    )
 
-                    # add the top 10 richest characters
-                    for i in range(10):
-                        embed.add_field(
-                            name=f"{result['Name']}",
-                            value=f"${result['BankMoney']}",
-                            inline=False,
-                        )
-                        result = cursor.fetchone()
-
-                    # send the embed
-                    await ctx.send(embed=embed)
+                # send the embed
+                await ctx.send(embed=embed)
 
     @slash_command(
         name="leaderboards",
@@ -335,34 +321,27 @@ class stats(Extension):
         with connection:
             with connection.cursor() as cursor:
                 # check if character is already registered
-                sql = f"SELECT * FROM characters ORDER BY Level DESC;"
+                sql = f"SELECT * FROM characters ORDER BY Level DESC LIMIT 5;"
                 cursor.execute(sql)
-                result = cursor.fetchone()
+                result = cursor.fetchall()
 
-                if result is None:
-                    return await ctx.send(
-                        "We can't find any data in the database.",
-                        ephemeral=True,
+                # create the embed
+                embed = Embed(
+                    title="Server Leaderboards",
+                    description="Highest Character Level in this server",
+                    color=0x00FF00,
+                )
+
+                # add the top 10 richest characters
+                for i in result:
+                    embed.add_field(
+                        name=f"{i['Name']}",
+                        value=f"Level {i['Level']}",
+                        inline=False,
                     )
-                else:
-                    # create the embed
-                    embed = Embed(
-                        title="Server Leaderboards",
-                        description="Highest Character Level in this server",
-                        color=0x00FF00,
-                    )
 
-                    # add the top 10 richest characters
-                    for i in range(10):
-                        embed.add_field(
-                            name=f"{result['Name']}",
-                            value=f"Level {result['Level']}",
-                            inline=False,
-                        )
-                        result = cursor.fetchone()
-
-                    # send the embed
-                    await ctx.send(embed=embed)
+                # send the embed
+                await ctx.send(embed=embed)
 
 
 def setup(bot):
