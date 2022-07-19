@@ -37,13 +37,12 @@ class presence(Extension):
     async def on_ready(self):
         self.ganti.start()
         try:
-            ip = os.getenv("IP")
-            port = os.getenv("PORT")
-            with SampClient(address=ip, port=port) as kung:
-                info = kung.get_server_info()
             await self.bot.change_presence(
                 status=Status.ONLINE,
-                activity=f"with {info.players}/{info.max_players} Players",
+                activity=Activity(
+                    name=f"Luxinity Roleplay with {info.players}/{info.max_players} Players!",
+                    type=ActivityType.COMPETING,
+                ),
             )
         except:
             await self.bot.change_presence(
