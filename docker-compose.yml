@@ -3,5 +3,5 @@ version: "3.9"
 services:
   bot:
     restart: on-failure
-    image: ghcr.io/luxinity-roleplay/luxinity-ucp:master
+    image: ghcr.io/luxinity-roleplay/bot:master
     env_file: .env
