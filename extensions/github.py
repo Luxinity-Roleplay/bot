@@ -253,7 +253,6 @@ class github(Extension):
 
             data = None
             try:
-
                 if "github.com/" in in_data and "#l" in in_data:
                     print("searching for link")
                     return await self.send_snippet(message)
