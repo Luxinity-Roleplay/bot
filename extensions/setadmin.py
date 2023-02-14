@@ -71,7 +71,6 @@ class setadmin(Extension):
         level: int,
         reason: Optional[str] = "No reason provided",
     ):
-
         if member.bot:
             embed = Embed(
                 description=f":x: You can't promote/demote discord bot!",
